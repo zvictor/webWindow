@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+    <head>
+		<title>webWindow, Naticulacus ou Menage</title>
+		<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<style>
+			body{
+				background-color: #cceae5;
+			}
+			#absolute{
+				background-color: gray;
+			}
+		</style>
+		<script type="text/javascript">
+			window.addEventListener("load", function(){
+				var webWindow = new Canvas(document.getElementById("webWindow"), {fullScreen:true, showFps:true});
+
+				//// Level 1 ////
+				var level1 = new Window({width:400, height: 200, scaleable: true});
+				Library.addCategorie("general");
+				Loader.prefix = "resources";
+				Library.general.fundo = new Loader("fundo.gif");
+				Library.general.alvo = new Loader("alvo.gif");
+				Library.general.parede = new Loader("parede.gif");
+				Library.general.caixaOff = new Loader("caixa0.gif");
+				Library.general.caixaOn = new Loader("caixa1.gif");
+				Library.general.personagem2 = new Loader(["Personagem00.gif",
+					"Personagem01.gif",
+					"Personagem10.gif",
+					"Personagem11.gif",
+					"Personagem20.gif",
+					"Personagem21.gif",
+					"Personagem30.gif",
+					"Personagem31.gif"]);
+
+				Library.general.personagem = new Loader(["Personagem00.gif",
+					"Personagem01.gif",
+					"Personagem10.gif",
+					"Personagem11.gif",
+					"Personagem20.gif",
+					"Personagem21.gif",
+					"Personagem30.gif",
+					"Personagem31.gif"]);
+			
+				level1.paint(function(){
+					this.drawSketch(Library.general.fundo.setPosition(new Position(-1,0, 30)));
+					this.drawSketch(Library.general.fundo.setPosition(new Position(0,0, 30)));
+					this.drawSketch(Library.general.alvo.setPosition(new Position(1,0,30)));
+					this.drawSketch(Library.general.personagem.setPosition(new Position(2,0,30)));
+					this.drawSketch(Library.general.personagem2.setPosition(new Position(3,0,30)));
+					this.fillText("require: "+level1.getProgress(), this.width()-55, this.height()-20);
+				});
+
+				//webWindow.addWindow(level1);
+
+
+				//// Level 2 ////
+				var fundo = Library.general.fundo;
+				var alvo = Library.general.alvo;
+				var parede = Library.general.parede;
+				var caixaOn = Library.general.caixaOn;
+				var caixa = Library.general.caixaOff;
+				var personagem = Library.general.personagem;
+
+
+				var level2 = new Level({
+					name: "level2",
+					objects: [
+						[fundo, [0,0]],
+						[caixa, [1,0]],
+						[alvo, [2,0]],
+						[personagem, [-1,0]],
+						[fundo, [-2,0]],
+						[parede, [3,0]],
+						[parede, [-3,0]],
+						[parede, [0,1]],
+						[parede, [1,1]],
+						[parede, [2,1]],
+						[parede, [3,1]],
+						[parede, [-1,1]],
+						[parede, [-2,1]],
+						[parede, [-3,1]],
+						[parede, [0,-1]],
+						[parede, [1,-1]],
+						[parede, [2,-1]],
+						[parede, [3,-1]],
+						[parede, [-1,-1]],
+						[parede, [-2,-1]],
+						[parede, [-3,-1]]
+					]
+				});
+				
+				var level2Window = new Window({width:400, height: 200, scaleable: true}).add(level2.objects).add(level1.setPosition(0,2,30));
+				webWindow.add(level2Window);
+
+				//var level2Window = new Window({width:400, height: 200, scaleable: true}).addPlans(level2.objects);
+				//level1.addPlans(level2Window.setPosition(0,2,30));
+				//webWindow.addWindows(level2Window);
+				//webWindow.addWindows(level1);
+				
+
+				webWindow.run();
+
+				
+				var rec = new Loader("abrir2.png");
+				var rec2 = new Loader("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC");
+				var rec3 = new Loader("2json.json");
+				var rec4 = new Loader("abrir.png");
+
+			}, true);
+	    
+		</script>
+    <script language="JavaScript" src="index.html.js"></script>
+</head>
+    <body>
+    <canvas id="webWindow"></canvas>
+    <div id="absolute">just a<br />background</div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+    <head>
+		<title>webWindow, Naticulacus ou Menage</title>
+		<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<style>
+			body{
+				background-color: #cceae5;
+			}
+			#absolute{
+				background-color: gray;
+			}
+		</style>
+		<script language="JavaScript" src="js/tools.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/Class.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/Listener.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/Loading.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/Position.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/Dimensions.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/Sketch.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/TextDraw.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/ImageDraw.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/ImagesAnimation.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/Container.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/Window.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/Canvas.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/Loader.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/Library.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/events/Event.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/events/HTMLEvent.js"></script><!-- CompileIt! -->
+		<script language="JavaScript" src="js/events/InitializedEvent.js"></script><!-- CompileIt! -->
+
+		<script language="JavaScript" src="game/Level.js"></script><!-- CompileIt! -->
+		<script type="text/javascript">
+			window.addEventListener("load", function(){
+				//// Level 1 ////
+				Loader.prefix = "resources";
+				Library.general.background = new Loader("fundo.gif");
+				Library.general.aim = new Loader("alvo.gif");
+				Library.general.wall = new Loader("parede.gif");
+				Library.general.boxOff = new Loader("caixa0.gif");
+				Library.general.boxOn = new Loader("caixa1.gif");
+/*				Library.general.personagem = new Loader(["Personagem00.gif",
+					"Personagem01.gif",
+					"Personagem10.gif",
+					"Personagem11.gif",
+					"Personagem20.gif",
+					"Personagem21.gif",
+					"Personagem30.gif",
+					"Personagem31.gif"]);*/
+				var level1 = new Window({width:400, height: 200, scaleable: true});
+				Library.general.addEventListener("load", function(){
+					level1.add(this.background.generate().setPosition(0, 0));
+					level1.add(this.background.generate().setPosition(30, 0));
+					level1.add(this.background.generate().setPosition(60, 0));
+					level1.add(this.background.generate().setPosition(90, 0));
+					level1.add(this.background.generate().setPosition(120, 0));
+					level1.add(this.background.generate().setPosition(150, 0));
+				});
+
+				
+				var theCanvas = new Canvas(document.getElementById("webWindow"), {fullScreen:true, showFps:true});
+				theCanvas.add(level1);
+				theCanvas.run();
+
+				/*level1.paint(function(){
+					this.drawSketch(Library.general.fundo.setPosition(new Position(-1,0, 30)));
+					this.drawSketch(Library.general.fundo.setPosition(new Position(0,0, 30)));
+					this.drawSketch(Library.general.alvo.setPosition(new Position(1,0,30)));
+					this.drawSketch(Library.general.personagem.setPosition(new Position(2,0,30)));
+					this.drawSketch(Library.general.personagem2.setPosition(new Position(3,0,30)));
+					this.fillText("require: "+level1.getProgress(), this.width()-55, this.height()-20);
+				});
+
+				//webWindow.addWindow(level1);
+
+
+				//// Level 2 ////
+				var fundo = Library.general.fundo;
+				var alvo = Library.general.alvo;
+				var parede = Library.general.parede;
+				var caixaOn = Library.general.caixaOn;
+				var caixa = Library.general.caixaOff;
+				var personagem = Library.general.personagem;
+
+
+				var level2 = new Level({
+					name: "level2",
+					objects: [
+						[fundo, [0,0]],
+						[caixa, [1,0]],
+						[alvo, [2,0]],
+						[personagem, [-1,0]],
+						[fundo, [-2,0]],
+						[parede, [3,0]],
+						[parede, [-3,0]],
+						[parede, [0,1]],
+						[parede, [1,1]],
+						[parede, [2,1]],
+						[parede, [3,1]],
+						[parede, [-1,1]],
+						[parede, [-2,1]],
+						[parede, [-3,1]],
+						[parede, [0,-1]],
+						[parede, [1,-1]],
+						[parede, [2,-1]],
+						[parede, [3,-1]],
+						[parede, [-1,-1]],
+						[parede, [-2,-1]],
+						[parede, [-3,-1]]
+					]
+				});
+				
+				var level2Window = new Window({width:400, height: 200, scaleable: true}).add(level2.objects).add(level1.setPosition(0,2,30));
+				webWindow.add(level2Window);
+
+				//var level2Window = new Window({width:400, height: 200, scaleable: true}).addPlans(level2.objects);
+				//level1.addPlans(level2Window.setPosition(0,2,30));
+				//webWindow.addWindows(level2Window);
+				//webWindow.addWindows(level1);
+				
+
+				webWindow.run();
+
+				
+				var rec = new Loader("abrir2.png");
+				var rec2 = new Loader("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC");
+				var rec3 = new Loader("2json.json");
+				var rec4 = new Loader("abrir.png");
+
+
+
+
+				var level3 = new Level([new Loader("mario.png", "bowser.png")]);
+				level3.paint = function(){
+					this.objects[0].setPosition();
+					this.objects[0]
+				}*/
+
+			}, true);
+	    
+		</script>
+    </head>
+    <body>
+    <canvas id="webWindow"></canvas>
+    <div id="absolute">just a<br />background</div>
+</body>
+</html>
